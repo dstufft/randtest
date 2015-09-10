@@ -5,7 +5,10 @@
 static PyObject *
 arc4random_arc4random_float(PyObject *self)
 {
-    return PyFloat_FromDouble((double)arc4random() / UINT_MAX);
+    PY_UINT32_T a = arc4random() >> 5;
+    PY_UINT32_T b = arc4random() >> 6;
+    double res53_random = (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
+    return PyFloat_FromDouble(res53_random);
 }
 
 
